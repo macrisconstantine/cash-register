@@ -20,9 +20,6 @@ window.onload = () => {
 
 };
 
-
-
-
 function purchaseClick() {
   const cashInCents = Math.round(Number(cashInput.value) * 100);
   const priceInCents = Math.round(price * 100);
