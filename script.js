@@ -20,6 +20,9 @@ window.onload = () => {
 
 };
 
+
+
+
 function purchaseClick() {
   const cashInCents = Math.round(Number(cashInput.value) * 100);
   const priceInCents = Math.round(price * 100);
@@ -41,9 +44,8 @@ function purchaseClick() {
     const totalCID = reversedCid.reduce((prev, [_, amount]) => prev + amount, 0);
     if (changeDue > totalCID) {
       changeDueDiv.innerHTML = "<p>STATUS: INSUFFICIENT_FUNDS</p>";
-    }
-    if (changeDue === totalCID) {
-      changeDueDiv.innerHTML = "<p>STATUS: CLOSED</p>";
-    }
+    } else {
+      
+    } 
   }
 }
