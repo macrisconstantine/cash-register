@@ -40,9 +40,30 @@ function purchaseClick() {
     const result = { status: 'OPEN', change: [] };
     const totalCID = reversedCid.reduce((prev, [_, amount]) => prev + amount, 0);
     if (changeDue > totalCID) {
-      changeDueDiv.innerHTML = "<p>STATUS: INSUFFICIENT_FUNDS</p>";
+      changeDueDiv.innerHTML = "<p>Status: INSUFFICIENT_FUNDS</p>";
     } else {
-      
-    } 
-  }
+      if (changeDue === totalCID) changeDueDiv.innerHTML = "Status: CLOSED" 
+      if (changeDue < totalCID) changeDueDiv.innerHTML = "Status: OPEN" 
+      for (let i=0; i <= reversedCid.length; i++) {
+        if (changeDue >= denominations[i] && changeDue > 0) {
+          const [denominationName, total] = reversedCid[i];
+          const possibleChange = Math.min(total, changeDue);
+          const count = Math.floor(possibleChange / denominations[i]);
+          const amountInChange = count * denominations[i];
+          changeDue -= amountInChange;
+
+          changeDueDiv.innerHTML += "</br> " + denominationName + ': $' + amountInChange / 100;  
+
+          if (count > 0) {
+            result.change.push([denominationName, amountInChange / 100]);
+          }
+        }
+      }
+      if (changeDue > 0) {
+        changeDueDiv.innerHTML = '<p>Status: INSUFFICIENT_FUNDS</p>';
+        return;
+      }
+    }
+    
+  } 
 }
