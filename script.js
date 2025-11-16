@@ -26,6 +26,7 @@ const changeDueDiv = document.getElementById("change-due");
 function purchaseClick() {
   const cashInCents = Math.round(Number(cash.value) * 100);
   const priceInCents = Math.round(price * 100);
+    console.log(cashInCents, priceInCents );
   if (cashInCents < priceInCents) {
     alert("Customer does not have enough money to purchase the item.");
   } else if (cashInCents === priceInCents) {
