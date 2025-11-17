@@ -29,6 +29,7 @@ function purchaseClick() {
   if (cashInCents < priceInCents) {
     alert("Customer does not have enough money to purchase the item.");
   } else if (cashInCents === priceInCents) {
+    console.log("No change due - customer paid with exact cash");
     changeDue.innerHTML = "No change due - customer paid with exact cash";
   }
   cash.value = '';
