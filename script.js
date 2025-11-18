@@ -10,13 +10,26 @@ let cid = [
   ['TWENTY', 60],
   ['ONE HUNDRED', 100]
 ];
+const reversedCid = [...cid]
+    .reverse()
+    .map(([denominationName, amount]) => [
+      denominationName,
+      Math.round(amount * 100)
+    ]);
+const denominations = [10000, 2000, 1000, 500, 100, 25, 10, 5, 1];
+const result = { status: 'OPEN', change: [] };
+const totalCID = reversedCid.reduce((prev, [_, amount]) => prev + amount, 0);
 
 const cashInput = document.getElementById("cash");
+const changeDueDiv = document.getElementById("change-due");
 
 function purchaseClick() {
   const cashInCents = Math.round(Number(cash.value) * 100);
   const priceInCents = Math.round(price * 100);
   if (cashInCents < priceInCents) {
     alert("Customer does not have enough money to purchase the item.");
+  } else if (cashInCents === priceInCents) {
+    changeDue.innerHTML = "No change due - customer paid with exact cash";
   }
+  cash.value = '';
 }
