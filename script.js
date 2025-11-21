@@ -29,7 +29,6 @@ function purchaseClick() {
     changeDueDiv.innerHTML = "No change due - customer paid with exact cash.";
   } else {
     let changeDue = cashInCents - priceInCents;
-    console.log(cashInCents, priceInCents, totalCID);
     const reversedCid = [...cid]
         .reverse()
         .map(([denominationName, amount]) => [
@@ -39,11 +38,17 @@ function purchaseClick() {
     const denominations = [10000, 2000, 1000, 500, 100, 25, 10, 5, 1];
     const result = { status: 'OPEN', change: [] };
     const totalCID = reversedCid.reduce((prev, [_, amount]) => prev + amount, 0);
+    console.log(cashInCents, priceInCents, totalCID, changeDue);
     if (changeDue > totalCID) {
       changeDueDiv.innerHTML = "<p>Status: INSUFFICIENT_FUNDS</p>";
     } else {
-      if (changeDue === totalCID) changeDueDiv.innerHTML = "Status: CLOSED" 
-      if (changeDue < totalCID) changeDueDiv.innerHTML = "Status: OPEN" 
+      let isClosed = changeDue === totalCID;
+      if (isClosed) {
+        changeDueDiv.innerHTML = "Status: CLOSED";
+      } else {
+        changeDueDiv.innerHTML = "Status: OPEN";
+      }
+
       for (let i=0; i <= reversedCid.length; i++) {
         if (changeDue >= denominations[i] && changeDue > 0) {
           const [denominationName, total] = reversedCid[i];
@@ -52,13 +57,19 @@ function purchaseClick() {
           const amountInChange = count * denominations[i];
           changeDue -= amountInChange;
 
-          changeDueDiv.innerHTML += "</br> " + denominationName + ': $' + amountInChange / 100;  
-
           if (count > 0) {
             result.change.push([denominationName, amountInChange / 100]);
           }
         }
       }
+      if (isClosed) {
+        changeDueDiv.innerHTML = "Status: CLOSED " +
+          result.change.map(x => `${x[0]}: $${x[1]}`).join(" ");
+      } else {
+        changeDueDiv.innerHTML = "Status: OPEN " +
+          result.change.map(x => `${x[0]}: $${x[1]}`).join(" ");
+      }
+
       if (changeDue > 0) {
         changeDueDiv.innerHTML = '<p>Status: INSUFFICIENT_FUNDS</p>';
         return;
