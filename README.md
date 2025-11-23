@@ -1,2 +1,2 @@
 # cash-register
-Extremely useful project that simulates a customer buying something and getting change from a cash register.
+Extremely useful project that simulates a customer buying something and getting change from a cash register. Extremely ugly at the moment (add styles if time) because I just wanted a mvp for now.
