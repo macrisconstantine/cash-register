@@ -3,10 +3,16 @@
     <link rel="stylesheet" href="styles.css"/>
     <script src="script.js"></script>
   </head>
-  <main>
-    <div id="change-due">
-    </div>
-    <input id="cash" type="number" value>
-    <button id="purchase-btn" onClick="purchaseClick();">Purchase</button>
-  </main>
+  <body>
+    <main class="register">
+      <h1>Cash Register</h1>
+
+      <div id="change-due" class="output"></div>
+
+      <label for="cash">Customer Cash:</label>
+      <input id="cash" type="number" step="0.01" placeholder="Enter amount" />
+
+      <button id="purchase-btn" onClick="purchaseClick();">Purchase</button>
+    </main>
+  </body>
 </html>
